@@ -1,3 +1,4 @@
+
 /**
  * Simple class to store x and y values together without any unnecessary extra
  * methods.
