@@ -109,7 +109,7 @@ public class Level extends JComponent implements ActionListener {
         map = new MapElement[levelHeight][levelWidth];
         crates = new Crate[numberOfCrates];
 
-        this.setBounds(20, 20, 700, 500);
+        this.setBounds(20, 20, 460, 540);
         this.setVisible(true);
 
         int row = 0;
