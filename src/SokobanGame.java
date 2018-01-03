@@ -11,16 +11,15 @@ public class SokobanGame extends JComponent {
     private int currentLevelNum;
     private final JFrame mainWindow;
     private StartMenu mainMenu;
-    private String levelWonDialog;
 
     SokobanGame() {
         mainWindow = new JFrame();
-        mainWindow.setSize(800, 600);
+        mainWindow.setSize(500, 580);
         mainWindow.setLayout(null);
         mainWindow.setVisible(true);
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         StartMenu startMenu = new StartMenu();
-        loadLevel(1);
+        loadLevel(0);
     }
 
     public void loadLevel(int levelNumber) {

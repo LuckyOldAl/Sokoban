@@ -22,6 +22,8 @@ public class Level extends JComponent implements ActionListener {
     int numberOfMoves;                  //Move counter
     JLabel numberOfMovesLabel;          //Label to show number of moves
     JButton restartLevelButton;         //Restart button
+    JButton nextLevelButton;
+    int levelNumber;
 
     int levelWidth;
     int levelHeight;
@@ -32,51 +34,65 @@ public class Level extends JComponent implements ActionListener {
     JButton moveDownButton;
     JButton moveRightButton;
 
-    Level(int levelNum) {
+    Level(int levelNumber) {
         try {
-            loadMap(levelNum);
+            loadMap(levelNumber);
         } catch (FileNotFoundException ex) {
             System.out.println("Level not found message:" + ex.getMessage());
         }
+    }
+
+    void loadUI() {
 
         numberOfMovesLabel = new JLabel("Number of Moves : " + numberOfMoves);
         add(numberOfMovesLabel);
-        numberOfMovesLabel.setBounds(300, levelHeight * 20 + 100, 150, 40);
+        numberOfMovesLabel.setBounds(145, 400, 150, 40);
         numberOfMovesLabel.setVisible(true);
 
         restartLevelButton = new JButton("Restart");
         add(restartLevelButton);
-        restartLevelButton.setBounds(300, levelHeight * 20 + 10, 80, 40);
+        restartLevelButton.setBounds(180, 300, 80, 40);
         restartLevelButton.setVisible(true);
         restartLevelButton.addActionListener(this);
 
         moveUpButton = new JButton("Up");
         add(moveUpButton);
-        moveUpButton.setBounds(100, levelHeight * 20 + 10, 80, 40);
+        moveUpButton.setBounds(45, 300, 80, 40);
         moveUpButton.setVisible(true);
         moveUpButton.addActionListener(this);
 
         moveDownButton = new JButton("Down");
         add(moveDownButton);
-        moveDownButton.setBounds(100, levelHeight * 20 + 110, 80, 40);
+        moveDownButton.setBounds(45, 400, 80, 40);
         moveDownButton.setVisible(true);
         moveDownButton.addActionListener(this);
 
         moveLeftButton = new JButton("Left");
         add(moveLeftButton);
-        moveLeftButton.setBounds(55, levelHeight * 20 + 60, 80, 40);
+        moveLeftButton.setBounds(0, 350, 80, 40);
         moveLeftButton.setVisible(true);
         moveLeftButton.addActionListener(this);
 
         moveRightButton = new JButton("Right");
         add(moveRightButton);
-        moveRightButton.setBounds(145, levelHeight * 20 + 60, 80, 40);
+        moveRightButton.setBounds(90, 350, 80, 40);
         moveRightButton.setVisible(true);
         moveRightButton.addActionListener(this);
+
+        nextLevelButton = new JButton("Well Done! Click for Next Level");
+        add(nextLevelButton);
+        nextLevelButton.setBounds(0, 450, 260, 40);
+        nextLevelButton.addActionListener(this);
+        nextLevelButton.setEnabled(false);
+        nextLevelButton.setVisible(false);
     }
 
-    public void loadMap(int levelNum) throws FileNotFoundException {
-        String levelLocation = "res/SokobanMaps/level" + levelNum + ".txt";
+    public void loadMap(int levelNumber) throws FileNotFoundException {
+
+        loadUI();
+
+        String levelLocation = "res/SokobanMaps/level" + levelNumber + ".txt";
+//        String levelLocation = "res/SokobanMaps/test" + levelNumber + ".txt";
 
         File levelFile = new File(levelLocation);
 
@@ -93,7 +109,7 @@ public class Level extends JComponent implements ActionListener {
         map = new MapElement[levelHeight][levelWidth];
         crates = new Crate[numberOfCrates];
 
-        this.setBounds(50, 50, 700, 500);
+        this.setBounds(20, 20, 700, 500);
         this.setVisible(true);
 
         int row = 0;
@@ -139,18 +155,6 @@ public class Level extends JComponent implements ActionListener {
         }
     }
 
-    public boolean checkForWin() {
-        boolean win = true;
-        int i = 0;
-        while (i < crates.length) {
-            if (map[crates[i].getYPosition()][crates[i].getXPosition()].getElementAsText() != ".") {
-                win = false;
-            }
-            i++;
-        }
-        return win;
-    }
-
     public void restartLevel() {
         int i = 0;
         while (i < crates.length) {
@@ -177,7 +181,18 @@ public class Level extends JComponent implements ActionListener {
 //            System.out.println("You pressed the right button");
             moveElement(warehouseKeeper, "right");
         } else if (e.getSource() == this.restartLevelButton) {
-           restartLevel(); 
+            restartLevel();
+        } else if (e.getSource() == this.nextLevelButton) {
+            numberOfMoves = 0;
+            numberOfMovesLabel.setText("Number of Moves : " + numberOfMoves);
+            removeAll();
+            repaint();
+            levelNumber++;
+            try {
+                loadMap(levelNumber);
+            } catch (FileNotFoundException ex) {
+                System.out.println("Level not found message:" + ex.getMessage());
+            }
         }
     }
 
@@ -200,7 +215,7 @@ public class Level extends JComponent implements ActionListener {
         } else {
             for (int i = 0; i < numberOfCrates; i++) {
                 if (crates[i].getXPosition() == newPosition.getX() && crates[i].getYPosition() == newPosition.getY()) {
-//                   System.out.println("warehouse keper moved into crate");
+//                   System.out.println("warehouse keper pushed crate");
                     canMove = moveElement(i, direction);
                 }
             }
@@ -211,7 +226,6 @@ public class Level extends JComponent implements ActionListener {
             numberOfMoves++;
             numberOfMovesLabel.setText("Number of Moves : " + numberOfMoves);
         }
-        checkForWin();
         return canMove;
     }
 
@@ -243,8 +257,26 @@ public class Level extends JComponent implements ActionListener {
         }
         if (canMove == true) {
             crates[c].setCurrentPosition(newPosition);
+            checkForWin();
+//            System.out.println(checkForWin());
         }
         return canMove;
+    }
+
+    public boolean checkForWin() {
+        boolean win = true;
+        int i = 0;
+        while (i < crates.length) {
+            if (map[crates[i].getYPosition()][crates[i].getXPosition()].getElementAsText() != ".") {
+                win = false;
+            }
+            i++;
+        }
+        if (win == true) {
+            nextLevelButton.setEnabled(true);
+            nextLevelButton.setVisible(true);
+        }
+        return win;
     }
 
 }
