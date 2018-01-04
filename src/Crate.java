@@ -1,5 +1,5 @@
 
-import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  * Crate class for map elements
@@ -12,7 +12,8 @@ public class Crate extends MovableMapElement {
         super(newX, newY);
         elementName = "Crate";
         elementAsText = "*";
-        elementColour = Color.red;
+        imgFileName = "res/SokobanAssets/Crate.png";
+        this.setIcon(new ImageIcon(imgFileName));
     }
 
 }

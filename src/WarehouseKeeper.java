@@ -1,5 +1,5 @@
 
-import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  * WarehouseKeeper class for player character
@@ -8,13 +8,11 @@ import java.awt.Color;
  */
 public class WarehouseKeeper extends MovableMapElement {
 
-    private MapElement[][] map;
-
     WarehouseKeeper(int newX, int newY) {
         super(newX, newY);
         elementName = "warehouseKeeper";
         elementAsText = "@";
-        elementColour = Color.black;
-
-    }
+        imgFileName = "res/SokobanAssets/WK.png";
+        this.setIcon(new ImageIcon(imgFileName));
+       }
 }

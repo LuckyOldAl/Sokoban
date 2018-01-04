@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -46,42 +47,43 @@ public class Level extends JComponent implements ActionListener {
 
         numberOfMovesLabel = new JLabel("Number of Moves : " + numberOfMoves);
         add(numberOfMovesLabel);
-        numberOfMovesLabel.setBounds(145, 400, 150, 40);
+        numberOfMovesLabel.setForeground(Color.red);
+        numberOfMovesLabel.setBounds(730, 950, 150, 40);
         numberOfMovesLabel.setVisible(true);
 
         restartLevelButton = new JButton("Restart");
         add(restartLevelButton);
-        restartLevelButton.setBounds(180, 300, 80, 40);
+        restartLevelButton.setBounds(750, 850, 80, 40);
         restartLevelButton.setVisible(true);
         restartLevelButton.addActionListener(this);
 
         moveUpButton = new JButton("Up");
         add(moveUpButton);
-        moveUpButton.setBounds(45, 300, 80, 40);
+        moveUpButton.setBounds(500, 850, 80, 40);
         moveUpButton.setVisible(true);
         moveUpButton.addActionListener(this);
 
         moveDownButton = new JButton("Down");
         add(moveDownButton);
-        moveDownButton.setBounds(45, 400, 80, 40);
+        moveDownButton.setBounds(500, 950, 80, 40);
         moveDownButton.setVisible(true);
         moveDownButton.addActionListener(this);
 
         moveLeftButton = new JButton("Left");
         add(moveLeftButton);
-        moveLeftButton.setBounds(0, 350, 80, 40);
+        moveLeftButton.setBounds(455, 900, 80, 40);
         moveLeftButton.setVisible(true);
         moveLeftButton.addActionListener(this);
 
         moveRightButton = new JButton("Right");
         add(moveRightButton);
-        moveRightButton.setBounds(90, 350, 80, 40);
+        moveRightButton.setBounds(545, 900, 80, 40);
         moveRightButton.setVisible(true);
         moveRightButton.addActionListener(this);
 
         nextLevelButton = new JButton("Well Done! Click for Next Level");
         add(nextLevelButton);
-        nextLevelButton.setBounds(0, 450, 260, 40);
+        nextLevelButton.setBounds(660, 900, 260, 40);
         nextLevelButton.addActionListener(this);
         nextLevelButton.setEnabled(false);
         nextLevelButton.setVisible(false);
@@ -109,7 +111,7 @@ public class Level extends JComponent implements ActionListener {
         map = new MapElement[levelHeight][levelWidth];
         crates = new Crate[numberOfCrates];
 
-        this.setBounds(20, 20, 460, 540);
+        this.setBounds(5, 5, 1430, 1070);
         this.setVisible(true);
 
         int row = 0;
@@ -148,7 +150,7 @@ public class Level extends JComponent implements ActionListener {
             int col = 0;
             while (col < levelWidth) {
                 this.add(map[row][col]);
-                map[row][col].setBounds(col * 20, row * 20, 20, 20);
+                map[row][col].setBounds(col * 64, row * 64, 64, 64);
                 col++;
             }
             row++;

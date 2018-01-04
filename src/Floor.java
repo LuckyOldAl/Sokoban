@@ -1,5 +1,5 @@
 
-import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  * Floor class for map elements
@@ -11,7 +11,8 @@ public class Floor extends MapElement {
     public Floor() {
         elementName = "Floor";
         elementAsText = " ";
-        elementColour = Color.yellow;
+        imgFileName = "res/SokobanAssets/Floor.png";
+        this.setIcon(new ImageIcon(imgFileName));
     }
 
 }

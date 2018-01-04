@@ -1,5 +1,4 @@
-import java.awt.Color;
-import java.awt.Graphics;
+
 import javax.swing.JLabel;
 
 /**
@@ -9,9 +8,11 @@ import javax.swing.JLabel;
  */
 public class MapElement extends JLabel {
 
-    String elementName;
-    String elementAsText;
-    Color elementColour;
+    public String elementName;
+    public String elementAsText;
+
+    public String imgFileName;
+    
 
     public String getElementName() {
         return elementName;
@@ -19,12 +20,6 @@ public class MapElement extends JLabel {
 
     public String getElementAsText() {
         return elementAsText;
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        g.setColor(elementColour);
-        g.fillRect(0, 0, 20, 20);
     }
 
 }

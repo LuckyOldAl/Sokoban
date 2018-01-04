@@ -1,5 +1,5 @@
 
-import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  * Diamond class for map elements
@@ -11,7 +11,8 @@ public class Diamond extends MapElement {
     public Diamond() {
         elementName = "Diamond";
         elementAsText = ".";
-        elementColour = Color.blue;
+        imgFileName = "res/SokobanAssets/Diamond.png";
+        this.setIcon(new ImageIcon(imgFileName));
     }
 
 }

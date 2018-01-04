@@ -17,13 +17,13 @@ public class MovableMapElement extends MapElement {
     public void setCurrentPosition(int newX, int newY) {
         currentPosition.setX(newX);
         currentPosition.setY(newY);
-        setBounds(newX * 20, newY * 20, 20, 20);
+        setBounds(newX * 64, newY * 64, 64, 64);
     }
 
     public void setCurrentPosition(Coordinate c) {
         currentPosition.setX(c.getX());
         currentPosition.setY(c.getY());
-        setBounds(c.getX() * 20, c.getY() * 20, 20, 20);
+        setBounds(c.getX() * 64, c.getY() * 64, 64, 64);
     }
 
     public Coordinate getCurrentPosition() {
@@ -41,13 +41,13 @@ public class MovableMapElement extends MapElement {
     public void setStartingPosition(int newX, int newY) {
         startingPosition.setX(newX);
         startingPosition.setY(newY);
-        setBounds(newX * 20, newY * 20, 20, 20);
+        setBounds(newX * 64, newY * 64, 64, 64);
     }
 
     public void setStartingPosition(Coordinate c) {
         startingPosition.setX(c.getX());
         startingPosition.setY(c.getY());
-        setBounds(c.getX() * 20, c.getY() * 20, 20, 20);
+        setBounds(c.getX() * 64, c.getY() * 64, 64, 64);
     }
 
     public Coordinate getStartingPosition() {
@@ -65,7 +65,7 @@ public class MovableMapElement extends MapElement {
     public void resetPosition() {
         currentPosition.setX(startingPosition.getX());
         currentPosition.setY(startingPosition.getY());
-        setBounds(startingPosition.getX() * 20, startingPosition.getY() * 20, 20, 20);
+        setBounds(startingPosition.getX() * 64, startingPosition.getY() * 64, 64, 64);
     }
 
 }

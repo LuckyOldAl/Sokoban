@@ -1,5 +1,5 @@
 
-import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  * Wall class for map elements
@@ -11,7 +11,8 @@ public class Wall extends MapElement {
     public Wall() {
         elementName = "Wall";
         elementAsText = "X";
-        elementColour = Color.green;
+        imgFileName = "res/SokobanAssets/Wall.png";
+        this.setIcon(new ImageIcon(imgFileName));
     }
 
 }
