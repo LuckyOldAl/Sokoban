@@ -7,6 +7,7 @@
 public class Sokoban {
 
     public static void main(String[] args) {
+        
         SokobanGame game = new SokobanGame();
     }
 

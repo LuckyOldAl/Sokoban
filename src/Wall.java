@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 public class Wall extends MapElement {
 
     public Wall() {
+        
         elementName = "Wall";
         elementAsText = "X";
         imgFileName = "res/SokobanAssets/Wall.png";

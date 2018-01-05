@@ -9,10 +9,11 @@ import javax.swing.ImageIcon;
 public class Diamond extends MapElement {
 
     public Diamond() {
+        
         elementName = "Diamond";
         elementAsText = ".";
         imgFileName = "res/SokobanAssets/Diamond.png";
         this.setIcon(new ImageIcon(imgFileName));
     }
-
+ 
 }

@@ -8,11 +8,13 @@ import javax.swing.ImageIcon;
  */
 public class WarehouseKeeper extends MovableMapElement {
 
-    WarehouseKeeper(int newX, int newY) {
+    public WarehouseKeeper(int newX, int newY) {
+        
         super(newX, newY);
         elementName = "warehouseKeeper";
         elementAsText = "@";
         imgFileName = "res/SokobanAssets/WK.png";
         this.setIcon(new ImageIcon(imgFileName));
-       }
+    }
+
 }

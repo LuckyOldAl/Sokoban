@@ -16,14 +16,16 @@ import javax.swing.SwingConstants;
  */
 public class SokobanGame extends JComponent implements ActionListener {
 
-    private final JFrame mainWindow;
-    JButton startGameButton;
-    JButton exitButton;
-    JLabel startupLabel;
-    JLabel creditsLabel;
-    JLabel instructionsLabel;
+    private final JFrame mainWindow;        //Main window variables will not change so can be assigned final
+    private JButton startGameButton;
+    private JButton exitButton;
+    private JLabel startupLabel;
+    private JLabel creditsLabel;
+    private JLabel instructionsLabel;
 
-    SokobanGame() {
+    //Creates main window and adds start menu
+    public SokobanGame() {
+        
         mainWindow = new JFrame();
         mainWindow.setSize(1440, 1080);
         mainWindow.getContentPane().setBackground(Color.black);
@@ -34,6 +36,7 @@ public class SokobanGame extends JComponent implements ActionListener {
         StartMenu();
     }
 
+    //Start menu contains information labels and buttons to launch or exit the game
     private void StartMenu() {
 
         startupLabel = new JLabel("Sokoban", SwingConstants.CENTER);
@@ -78,7 +81,9 @@ public class SokobanGame extends JComponent implements ActionListener {
         this.setVisible(true);
     }
 
+    //Method to load first level
     public void loadLevel(int levelNumber) {
+        
         Level firstLevel = new Level(levelNumber);
         mainWindow.add(firstLevel);
         firstLevel.repaint();
