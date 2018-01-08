@@ -27,7 +27,7 @@ public class SokobanGame extends JComponent implements ActionListener {
     public SokobanGame() {
         
         mainWindow = new JFrame();
-        mainWindow.setSize(1440, 1080);
+        mainWindow.setSize(1090, 850);
         mainWindow.getContentPane().setBackground(Color.black);
         mainWindow.setLocationRelativeTo(null);
         mainWindow.setLayout(null);
@@ -40,31 +40,31 @@ public class SokobanGame extends JComponent implements ActionListener {
     private void StartMenu() {
 
         startupLabel = new JLabel("Sokoban", SwingConstants.CENTER);
-        startupLabel.setFont(new Font("Serif", Font.BOLD, 300));
+        startupLabel.setFont(new Font("Serif", Font.BOLD, 270));
         startupLabel.setForeground(Color.red);
         add(startupLabel);
-        startupLabel.setBounds(10, 20, 1440, 300);
+        startupLabel.setBounds(0, 20, 1090, 220);
         startupLabel.setVisible(true);
 
         creditsLabel = new JLabel("<html>Created by Hiroyuki Imabayashi 1981<br><br>Graphics by 1001.com 2014<br><br>Badly Coded by Alastair Watt 2018</html>", SwingConstants.CENTER);
-        creditsLabel.setFont(new Font("Serif", Font.BOLD, 24));
+        creditsLabel.setFont(new Font("Serif", Font.BOLD, 20));
         creditsLabel.setForeground(Color.red);
         add(creditsLabel);
-        creditsLabel.setBounds(0, 360, 1440, 180);
+        creditsLabel.setBounds(0, 260, 1090, 180);
         creditsLabel.setVisible(true);
 
         instructionsLabel = new JLabel("<html>Instructions:<br>Push all the crates onto the diamonds.</html>", SwingConstants.CENTER);
-        instructionsLabel.setFont(new Font("Serif", Font.BOLD, 64));
+        instructionsLabel.setFont(new Font("Serif", Font.BOLD, 56));
         instructionsLabel.setForeground(Color.red);
         add(instructionsLabel);
-        instructionsLabel.setBounds(0, 570, 1440, 200);
+        instructionsLabel.setBounds(0, 470, 1090, 120);
         instructionsLabel.setVisible(true);
 
         startGameButton = new JButton("Start Game");
         startGameButton.setFont(new Font("Serif", Font.BOLD, 54));
         startGameButton.setBackground(Color.red);
         add(startGameButton);
-        startGameButton.setBounds(240, 800, 300, 140);
+        startGameButton.setBounds(10, 645, 300, 140);
         startGameButton.setVisible(true);
         startGameButton.addActionListener(this);
 
@@ -72,12 +72,12 @@ public class SokobanGame extends JComponent implements ActionListener {
         exitButton.setFont(new Font("Serif", Font.BOLD, 54));
         exitButton.setBackground(Color.red);
         add(exitButton);
-        exitButton.setBounds(900, 800, 300, 140);
+        exitButton.setBounds(760, 645, 300, 140);
         exitButton.setVisible(true);
         exitButton.addActionListener(this);
 
         mainWindow.add(this);
-        this.setBounds(0, 0, 1440, 1080);
+        this.setBounds(0, 0, 1090, 800);
         this.setVisible(true);
     }
 

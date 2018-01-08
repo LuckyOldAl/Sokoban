@@ -18,14 +18,14 @@ public class Crate extends MovableMapElement {
     }
 
     //Method to change colour of crate when it is on a diamond
-    public void CrateOnDiamond() {
+    public void crateOnDiamond() {
         
         imgFileName = "res/SokobanAssets/CrateOnDiamond.png";
         this.setIcon(new ImageIcon(imgFileName));
     }
 
     //Method to change crate colour back to original colour
-    public void CrateOffDiamond() {
+    public void crateOffDiamond() {
         
         imgFileName = "res/SokobanAssets/Crate.png";
         this.setIcon(new ImageIcon(imgFileName));

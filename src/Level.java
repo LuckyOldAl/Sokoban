@@ -56,14 +56,14 @@ public class Level extends JComponent implements ActionListener {
         add(numberOfMovesLabel);                                                //Add to level
         numberOfMovesLabel.setFont(new Font("Serif", Font.BOLD, 18));           //Set font
         numberOfMovesLabel.setForeground(Color.red);                            //Set text colour
-        numberOfMovesLabel.setBounds(705, 950, 190, 40);                        //Set size and position
+        numberOfMovesLabel.setBounds(575, 735, 190, 40);                        //Set size and position
         numberOfMovesLabel.setVisible(true);                                    //Set visibility
 
         restartLevelButton = new JButton("Restart");                            //Set button name
         add(restartLevelButton);
         restartLevelButton.setFont(new Font("Serif", Font.BOLD, 18));
         restartLevelButton.setBackground(Color.red);                            //Set button background colour
-        restartLevelButton.setBounds(730, 850, 120, 40);
+        restartLevelButton.setBounds(600, 635, 120, 40);
         restartLevelButton.setVisible(true);
         restartLevelButton.addActionListener(this);                             //Add ActionListner to button
 
@@ -71,7 +71,7 @@ public class Level extends JComponent implements ActionListener {
         add(moveUpButton);
         moveUpButton.setFont(new Font("Serif", Font.BOLD, 18));
         moveUpButton.setBackground(Color.red);
-        moveUpButton.setBounds(500, 850, 80, 40);
+        moveUpButton.setBounds(355, 635, 80, 40);
         moveUpButton.setVisible(true);
         moveUpButton.addActionListener(this);
 
@@ -79,7 +79,7 @@ public class Level extends JComponent implements ActionListener {
         add(moveDownButton);
         moveDownButton.setFont(new Font("Serif", Font.BOLD, 18));
         moveDownButton.setBackground(Color.red);
-        moveDownButton.setBounds(500, 950, 80, 40);
+        moveDownButton.setBounds(355, 735, 80, 40);
         moveDownButton.setVisible(true);
         moveDownButton.addActionListener(this);
 
@@ -87,15 +87,14 @@ public class Level extends JComponent implements ActionListener {
         add(moveLeftButton);
         moveLeftButton.setFont(new Font("Serif", Font.BOLD, 18));
         moveLeftButton.setBackground(Color.red);
-        moveLeftButton.setBounds(455, 900, 80, 40);
-        moveLeftButton.setVisible(true);
+        moveLeftButton.setBounds(310, 685, 80, 40);        moveLeftButton.setVisible(true);
         moveLeftButton.addActionListener(this);
 
         moveRightButton = new JButton("Right");
         add(moveRightButton);
         moveRightButton.setFont(new Font("Serif", Font.BOLD, 18));
         moveRightButton.setBackground(Color.red);
-        moveRightButton.setBounds(545, 900, 80, 40);
+        moveRightButton.setBounds(400, 685, 80, 40);
         moveRightButton.setVisible(true);
         moveRightButton.addActionListener(this);
 
@@ -103,7 +102,7 @@ public class Level extends JComponent implements ActionListener {
         add(nextLevelButton);
         nextLevelButton.setFont(new Font("Serif", Font.BOLD, 16));
         nextLevelButton.setBackground(Color.red);
-        nextLevelButton.setBounds(660, 900, 260, 40);
+        nextLevelButton.setBounds(530, 685, 260, 40);
         nextLevelButton.addActionListener(this);
         nextLevelButton.setEnabled(false);                                      //Button only enabled when level is complete
         nextLevelButton.setVisible(false);                                      //Button only visible when level is complete
@@ -128,7 +127,7 @@ public class Level extends JComponent implements ActionListener {
         map = new MapElement[levelHeight][levelWidth];  //Create 2D array of MapElement objects
         crates = new Crate[numberOfCrates];             //Create array of Crate objects
 
-        this.setBounds(5, 5, 1430, 1070);
+        this.setBounds(5, 5, 1080, 840);
         this.setVisible(true);
 
         int row = 0;
@@ -166,7 +165,7 @@ public class Level extends JComponent implements ActionListener {
             int col = 0;
             while (col < levelWidth) {
                 this.add(map[row][col]);
-                map[row][col].setBounds(col * 64, row * 64, 64, 64);    //All map elements are 64 pixel squares so x and y values must be multiplied by 64
+                map[row][col].setBounds(col * 48, row * 48, 48, 48);    //All map elements are 48 pixel squares so x and y values must be multiplied by 64
                 col++;
             }
             row++;
@@ -178,7 +177,7 @@ public class Level extends JComponent implements ActionListener {
         
         int i = 0;
         while (i < crates.length) {
-            crates[i].CrateOffDiamond();    //Changes any crates on diamonds back to original colour
+            crates[i].crateOffDiamond();    //Changes any crates on diamonds back to original colour
             crates[i].resetPosition();
             i++;
         }
@@ -277,9 +276,11 @@ public class Level extends JComponent implements ActionListener {
             }
         }
         if (canMove == true) {
-             //Checks if there is a diamond at the position the crate is trying to move into
+             //Checks if there is a diamond at the position the crate is moving into
             if (map[newPosition.getY()][newPosition.getX()].getElementName() == "Diamond") {
-                crates[c].CrateOnDiamond();     //Changes crate colour to show it is on diamond
+                crates[c].crateOnDiamond();     //Changes crate colour to show it is on diamond
+            } else {
+                crates[c].crateOffDiamond();    //In case crate moved onto diamond then off again
             }
             crates[c].setCurrentPosition(newPosition);
             checkForWin();                      //Only check win condition if crate moves onto diamond
