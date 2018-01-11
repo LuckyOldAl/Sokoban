@@ -21,24 +21,18 @@ import javax.swing.SwingConstants;
 public class Level extends JComponent implements ActionListener {
 
     private MapElement map[][];                 //2D Array of stationary MapElements
-    private WarehouseKeeper warehouseKeeper;    //WarehouseKeeper object
+    public WarehouseKeeper warehouseKeeper;    //WarehouseKeeper object
     private Crate crates[];                     //Array of all crates
-    private int numberOfMoves;                  //Move counter
+    public int numberOfMoves;                   //Move counter
     private int levelNumber;                    //Identifier for loadMap method
     private int levelWidth;                     //For setting width of 2D array
     private int levelHeight;                    //For setting height of 2D array
     private int numberOfCrates;                 //For setting length of crate array
-
-    private JButton restartLevelButton;         //Restart button
-    private JButton moveUpButton;               //Up button
-    private JButton moveDownButton;             //Down button
-    private JButton moveLeftButton;             //Left button
-    private JButton moveRightButton;            //Right button
-    private JButton nextLevelButton;            //Win message and next level button
-    private JLabel numberOfMovesLabel;          //Label to show number of moves
+    public JLabel numberOfMovesLabel;          //Label to show number of moves
     private JLabel gameCompletedLabel;          //Label appears if all levels completed
     private JButton exitButton;                 //Button appears if all levels completed
-
+    
+    
     //Constructor tries loadMap method and catches FileNotFoundException
     public Level(int levelNumber) {
         
@@ -48,70 +42,10 @@ public class Level extends JComponent implements ActionListener {
             System.out.println("Level not found message:" + ex.getMessage());
         }
     }
-    
-    //Draw UI score counter and control buttons, each of which has an ActionListner
-    private void loadUI() {
-
-        numberOfMovesLabel = new JLabel("Number of Moves : " + numberOfMoves);  //Set label text
-        add(numberOfMovesLabel);                                                //Add to level
-        numberOfMovesLabel.setFont(new Font("Serif", Font.BOLD, 18));           //Set font
-        numberOfMovesLabel.setForeground(Color.red);                            //Set text colour
-        numberOfMovesLabel.setBounds(575, 735, 190, 40);                        //Set size and position
-        numberOfMovesLabel.setVisible(true);                                    //Set visibility
-
-        restartLevelButton = new JButton("Restart");                            //Set button name
-        add(restartLevelButton);
-        restartLevelButton.setFont(new Font("Serif", Font.BOLD, 18));
-        restartLevelButton.setBackground(Color.red);                            //Set button background colour
-        restartLevelButton.setBounds(600, 635, 120, 40);
-        restartLevelButton.setVisible(true);
-        restartLevelButton.addActionListener(this);                             //Add ActionListner to button
-
-        moveUpButton = new JButton("Up");
-        add(moveUpButton);
-        moveUpButton.setFont(new Font("Serif", Font.BOLD, 18));
-        moveUpButton.setBackground(Color.red);
-        moveUpButton.setBounds(355, 635, 80, 40);
-        moveUpButton.setVisible(true);
-        moveUpButton.addActionListener(this);
-
-        moveDownButton = new JButton("Down");
-        add(moveDownButton);
-        moveDownButton.setFont(new Font("Serif", Font.BOLD, 18));
-        moveDownButton.setBackground(Color.red);
-        moveDownButton.setBounds(355, 735, 80, 40);
-        moveDownButton.setVisible(true);
-        moveDownButton.addActionListener(this);
-
-        moveLeftButton = new JButton("Left");
-        add(moveLeftButton);
-        moveLeftButton.setFont(new Font("Serif", Font.BOLD, 18));
-        moveLeftButton.setBackground(Color.red);
-        moveLeftButton.setBounds(310, 685, 80, 40);        moveLeftButton.setVisible(true);
-        moveLeftButton.addActionListener(this);
-
-        moveRightButton = new JButton("Right");
-        add(moveRightButton);
-        moveRightButton.setFont(new Font("Serif", Font.BOLD, 18));
-        moveRightButton.setBackground(Color.red);
-        moveRightButton.setBounds(400, 685, 80, 40);
-        moveRightButton.setVisible(true);
-        moveRightButton.addActionListener(this);
-
-        nextLevelButton = new JButton("Well Done! Click for Next Level");
-        add(nextLevelButton);
-        nextLevelButton.setFont(new Font("Serif", Font.BOLD, 16));
-        nextLevelButton.setBackground(Color.red);
-        nextLevelButton.setBounds(530, 685, 260, 40);
-        nextLevelButton.addActionListener(this);
-        nextLevelButton.setEnabled(false);                                      //Button only enabled when level is complete
-        nextLevelButton.setVisible(false);                                      //Button only visible when level is complete
-    }
-
+  
     //loadMap uses scanner to read text files and populates arrays accordingly
     public void loadMap(int levelNumber) throws FileNotFoundException {
-
-        loadUI();                                                               //UI reloaded each time a new level is started as it is removed by next level button
+        
         String levelLocation = "res/SokobanMaps/level" + levelNumber + ".txt";  //Filepath for level file
         File levelFile = new File(levelLocation);                               //Make File object using filepath
         Scanner levelScanner = new Scanner(levelFile);                          //Scanner reads text input from File
@@ -127,7 +61,7 @@ public class Level extends JComponent implements ActionListener {
         map = new MapElement[levelHeight][levelWidth];  //Create 2D array of MapElement objects
         crates = new Crate[numberOfCrates];             //Create array of Crate objects
 
-        this.setBounds(5, 5, 1080, 840);
+        this.setBounds(5, 5, 1080, 620);
         this.setVisible(true);
 
         int row = 0;
@@ -173,7 +107,7 @@ public class Level extends JComponent implements ActionListener {
     }
 
     //Resets movable object positions to starting positions
-    private void restartLevel() {
+    public void restartLevel() {
         
         int i = 0;
         while (i < crates.length) {
@@ -182,56 +116,37 @@ public class Level extends JComponent implements ActionListener {
             i++;
         }
         warehouseKeeper.resetPosition();
-        numberOfMoves = 0;                                                  //Reset number of moves
-        numberOfMovesLabel.setText("Number of Moves : " + numberOfMoves);   //Reset text on moves label
+        numberOfMoves = 0;                                                              //Reset number of moves
+        SokobanGame.numberOfMovesLabel.setText("Number of Moves : " + numberOfMoves);   //Reset text on moves label
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        if (e.getSource() == this.moveUpButton) {
-            moveElement(warehouseKeeper, "up");
-        } else if (e.getSource() == this.moveDownButton) {
-            moveElement(warehouseKeeper, "down");
-        } else if (e.getSource() == this.moveLeftButton) {
-            moveElement(warehouseKeeper, "left");
-        } else if (e.getSource() == this.moveRightButton) {
-            moveElement(warehouseKeeper, "right");
-        } else if (e.getSource() == this.restartLevelButton) {
-            restartLevel();
-        } else if (e.getSource() == this.nextLevelButton) {
-            numberOfMoves = 0;
-            numberOfMovesLabel.setText("Number of Moves : " + numberOfMoves);
-            removeAll();                                                    //To remove previous level from window
-            repaint();
-            try {
-                loadMap(levelNumber);
-            } catch (FileNotFoundException ex) {
-                System.out.println("Level not found message:" + ex.getMessage());
-            }
-        } else if (e.getSource() == this.exitButton) {
+
+         if (e.getSource().equals(this.exitButton)) {
             System.exit(0);
         }
     }
     
     //Method for moving warehousekeeper
-    private boolean moveElement(WarehouseKeeper wk, String direction) {
+    public boolean moveElement(WarehouseKeeper wk, String direction) {
         
         boolean canMove = true;
         Coordinate newPosition;
         
-        if (direction == "up") {
+        if (direction.equals("up")) {
             newPosition = new Coordinate(wk.getXPosition(), wk.getYPosition() - 1);
-        } else if (direction == "down") {
+        } else if (direction.equals("down")) {
             newPosition = new Coordinate(wk.getXPosition(), wk.getYPosition() + 1);
-        } else if (direction == "left") {
+        } else if (direction.equals("left")) {
             newPosition = new Coordinate(wk.getXPosition() - 1, wk.getYPosition());
         } else {
             newPosition = new Coordinate(wk.getXPosition() + 1, wk.getYPosition());
         }
 
         //Checks if there is a wall at the position the warehousekeeper is trying to move into
-        if (map[newPosition.getY()][newPosition.getX()].getElementName() == "Wall") {
+        if (map[newPosition.getY()][newPosition.getX()].getElementName().equals("Wall")) {
             canMove = false;
         } else {
             //Checks if there is a crate at the position the warehousekeeper is trying to move into
@@ -244,28 +159,28 @@ public class Level extends JComponent implements ActionListener {
         if (canMove == true) {
             warehouseKeeper.setCurrentPosition(newPosition);
             numberOfMoves++;
-            numberOfMovesLabel.setText("Number of Moves : " + numberOfMoves);
+            SokobanGame.numberOfMovesLabel.setText("Number of Moves : " + numberOfMoves);
         }
         return canMove;
     }
 
     //Method for moving crates
-    private boolean moveElement(int c, String direction) {
+    public boolean moveElement(int c, String direction) {
         
         boolean canMove = true;
         Coordinate newPosition;
-        if (direction == "up") {
+        if (direction.equals("up")) {
             newPosition = new Coordinate(crates[c].getXPosition(), crates[c].getYPosition() - 1);
-        } else if (direction == "down") {
+        } else if (direction.equals("down")) {
             newPosition = new Coordinate(crates[c].getXPosition(), crates[c].getYPosition() + 1);
-        } else if (direction == "left") {
+        } else if (direction.equals("left")) {
             newPosition = new Coordinate(crates[c].getXPosition() - 1, crates[c].getYPosition());
         } else {
             newPosition = new Coordinate(crates[c].getXPosition() + 1, crates[c].getYPosition());
         }
 
          //Checks if there is a wall at the position the crate is trying to move into
-        if (map[newPosition.getY()][newPosition.getX()].getElementName() == "Wall") {
+        if (map[newPosition.getY()][newPosition.getX()].getElementName().equals("Wall")) {
             canMove = false;
         } else {
              //Checks if there is a crate at the position the crate is trying to move into
@@ -277,7 +192,7 @@ public class Level extends JComponent implements ActionListener {
         }
         if (canMove == true) {
              //Checks if there is a diamond at the position the crate is moving into
-            if (map[newPosition.getY()][newPosition.getX()].getElementName() == "Diamond") {
+            if (map[newPosition.getY()][newPosition.getX()].getElementName().equals("Diamond")) {
                 crates[c].crateOnDiamond();     //Changes crate colour to show it is on diamond
             } else {
                 crates[c].crateOffDiamond();    //In case crate moved onto diamond then off again
@@ -308,21 +223,21 @@ public class Level extends JComponent implements ActionListener {
                 repaint();
                 gameCompletedLabel = new JLabel("You Win!", SwingConstants.CENTER);
                 add(gameCompletedLabel);
-                gameCompletedLabel.setFont(new Font("Serif", Font.BOLD, 320));
+                gameCompletedLabel.setFont(new Font("Serif", Font.BOLD, 200));
                 gameCompletedLabel.setForeground(Color.red);
-                gameCompletedLabel.setBounds(0, 0, 1430, 900);
+                gameCompletedLabel.setBounds(0, 0, 1080, 420);
                 gameCompletedLabel.setVisible(true);
 
                 exitButton = new JButton("Exit");
                 exitButton.setFont(new Font("Serif", Font.BOLD, 54));
                 exitButton.setBackground(Color.red);
                 add(exitButton);
-                exitButton.setBounds(900, 800, 300, 140);
+                exitButton.setBounds(380, 380, 300, 140);
                 exitButton.addActionListener(this);
                 exitButton.setVisible(true);
             } else {
-                nextLevelButton.setEnabled(true);       //Enable next level button
-                nextLevelButton.setVisible(true);       //Show next level button with level complete dialog
+                SokobanGame.nextLevelButton.setEnabled(true);       //Enable next level button
+                SokobanGame.nextLevelButton.setVisible(true);       //Show next level button with level complete dialog
             }
         }
         return win;
