@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
  */
 public class SokobanGame extends JComponent implements ActionListener {
 
-    public final JFrame mainWindow;        //Main window variables will not change so can be assigned final
+    public final JFrame mainWindow;        //Main window variables will not change once initialised so can be assigned final
     private JButton startGameButton;
     private JButton exitButton;
     private JLabel startupLabel;
@@ -28,8 +28,8 @@ public class SokobanGame extends JComponent implements ActionListener {
     public JButton moveDownButton;             //Down button
     public JButton moveLeftButton;             //Left button
     public JButton moveRightButton;            //Right button
-    public static JButton nextLevelButton;     //Win message and next level button
-    public static JLabel numberOfMovesLabel;          //Label to show number of moves
+    public static JButton nextLevelButton;     //Win message and next level button. Static as it needs to be accessed from Level class
+    public static JLabel numberOfMovesLabel;   //Label to show number of moves. Static as it needs to be accessed from Level class
     public int numberOfMoves;                  //Move counter
     public int levelNumber;
     public Level firstLevel;
@@ -164,9 +164,9 @@ public class SokobanGame extends JComponent implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(this.startGameButton)) {
-            removeAll();
-            repaint();
+        if (e.getSource().equals(this.startGameButton)) {                       //If source of action event is startGameButton in this class
+            removeAll();                                                        //To remove start menu components
+            repaint();                                                          //Make mainWindow blank again
             loadLevel(0);
         } else if (e.getSource().equals(this.exitButton)) {
             System.exit(0);

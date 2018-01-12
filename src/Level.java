@@ -20,15 +20,15 @@ import javax.swing.SwingConstants;
 
 public class Level extends JComponent implements ActionListener {
 
-    private MapElement map[][];                 //2D Array of stationary MapElements
-    public WarehouseKeeper warehouseKeeper;    //WarehouseKeeper object
+    private MapElement map[][];                 //2D Array of stationary MapElements. Private as it will not be accessed from outside this class
+    public WarehouseKeeper warehouseKeeper;     //WarehouseKeeper object. Public as it will be accessed from the SokobanGame class
     private Crate crates[];                     //Array of all crates
     public int numberOfMoves;                   //Move counter
     private int levelNumber;                    //Identifier for loadMap method
     private int levelWidth;                     //For setting width of 2D array
     private int levelHeight;                    //For setting height of 2D array
     private int numberOfCrates;                 //For setting length of crate array
-    public JLabel numberOfMovesLabel;          //Label to show number of moves
+    public JLabel numberOfMovesLabel;           //Label to show number of moves
     private JLabel gameCompletedLabel;          //Label appears if all levels completed
     private JButton exitButton;                 //Button appears if all levels completed
     
@@ -129,20 +129,25 @@ public class Level extends JComponent implements ActionListener {
         }
     }
     
-    //Method for moving warehousekeeper
+    //Method for moving warehousekeeper by adding or subtracting 1 from either x or y coordinate
     public boolean moveElement(WarehouseKeeper wk, String direction) {
         
         boolean canMove = true;
         Coordinate newPosition;
         
-        if (direction.equals("up")) {
-            newPosition = new Coordinate(wk.getXPosition(), wk.getYPosition() - 1);
-        } else if (direction.equals("down")) {
-            newPosition = new Coordinate(wk.getXPosition(), wk.getYPosition() + 1);
-        } else if (direction.equals("left")) {
-            newPosition = new Coordinate(wk.getXPosition() - 1, wk.getYPosition());
-        } else {
-            newPosition = new Coordinate(wk.getXPosition() + 1, wk.getYPosition());
+        switch (direction) {
+            case "up":
+                newPosition = new Coordinate(wk.getXPosition(), wk.getYPosition() - 1);
+                break;
+            case "down":
+                newPosition = new Coordinate(wk.getXPosition(), wk.getYPosition() + 1);
+                break;
+            case "left":
+                newPosition = new Coordinate(wk.getXPosition() - 1, wk.getYPosition());
+                break;
+            default:
+                newPosition = new Coordinate(wk.getXPosition() + 1, wk.getYPosition());
+                break;
         }
 
         //Checks if there is a wall at the position the warehousekeeper is trying to move into
@@ -164,19 +169,25 @@ public class Level extends JComponent implements ActionListener {
         return canMove;
     }
 
-    //Method for moving crates
+    //Method for moving crates by adding or subtracting 1 from either x or y coordinate
     public boolean moveElement(int c, String direction) {
         
         boolean canMove = true;
         Coordinate newPosition;
-        if (direction.equals("up")) {
-            newPosition = new Coordinate(crates[c].getXPosition(), crates[c].getYPosition() - 1);
-        } else if (direction.equals("down")) {
-            newPosition = new Coordinate(crates[c].getXPosition(), crates[c].getYPosition() + 1);
-        } else if (direction.equals("left")) {
-            newPosition = new Coordinate(crates[c].getXPosition() - 1, crates[c].getYPosition());
-        } else {
-            newPosition = new Coordinate(crates[c].getXPosition() + 1, crates[c].getYPosition());
+        
+        switch (direction) {
+            case "up":
+                newPosition = new Coordinate(crates[c].getXPosition(), crates[c].getYPosition() - 1);
+                break;
+            case "down":
+                newPosition = new Coordinate(crates[c].getXPosition(), crates[c].getYPosition() + 1);
+                break;
+            case "left":
+                newPosition = new Coordinate(crates[c].getXPosition() - 1, crates[c].getYPosition());
+                break;
+            default:
+                newPosition = new Coordinate(crates[c].getXPosition() + 1, crates[c].getYPosition());
+                break;
         }
 
          //Checks if there is a wall at the position the crate is trying to move into
@@ -210,7 +221,7 @@ public class Level extends JComponent implements ActionListener {
         int i = 0;
         while (i < crates.length) {
             //Checks all crate positions against all diamond positions. If they match the level is complete
-            if (map[crates[i].getYPosition()][crates[i].getXPosition()].getElementName() != "Diamond") {
+            if (!"Diamond".equals(map[crates[i].getYPosition()][crates[i].getXPosition()].getElementName())) {
                 win = false;
             }
             i++;
